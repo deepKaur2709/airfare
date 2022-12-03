@@ -16,8 +16,8 @@ const ManageBooking = () => {
 
     const fetchflightDetailsandbookings = async () => {
         const requests = []
-        const flighPromises = await axios.post('http://localhost:2000/transactions/flights', null)
-        const bookingPromises = await axios.post('http://localhost:2000/booking/getBookingsBasedOnFilter', { customerId: userdetails ? userdetails._id : '' })
+        const flighPromises = await axios.post('https://airfareapi.herokuapp.com/transactions/flights', null)
+        const bookingPromises = await axios.post('https://airfareapi.herokuapp.com/booking/getBookingsBasedOnFilter', { customerId: userdetails ? userdetails._id : '' })
         requests.push(flighPromises)
         requests.push(bookingPromises)
         Promise.all(requests).then((response) => {
@@ -43,7 +43,7 @@ const ManageBooking = () => {
     }
 
     const CancelBooking = async (bookingId) => {
-        await axios.delete(`http://localhost:2000/booking/remove/${bookingId}`, null).then((response) => {
+        await axios.delete(`https://airfareapi.herokuapp.com/booking/remove/${bookingId}`, null).then((response) => {
             if (response.status === 200) {
                 toast.success('Booking Deleted Successfully !!!!')
                 setTimeout(() => fetchflightDetailsandbookings(), 4000)

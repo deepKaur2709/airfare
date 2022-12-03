@@ -62,7 +62,7 @@ const AdminSignUp = () => {
     }
 
     const addNewUser = async (newuser) => {
-        await axios.post('http://localhost:2000/admin/signup', newuser).then((response) => {
+        await axios.post('https://airfareapi.herokuapp.com/admin/signup', newuser).then((response) => {
             if (response.status === 201) {
                 toast.success('Admin Created Successfully !!!');
                 setTimeout(() => { window.location.href = '/adminsignin' }, 4000)

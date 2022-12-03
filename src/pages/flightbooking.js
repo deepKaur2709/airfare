@@ -35,7 +35,7 @@ const FlightBooking = (props) => {
     }, [locationDetails.flightId])
 
     const getflightDetails = (flightId, seatType) => {
-        axios.get(`http://localhost:2000/transactions/details/${flightId}`).then((response) => {
+        axios.get(`https://airfareapi.herokuapp.com/transactions/details/${flightId}`).then((response) => {
             const flightDetails = response.data
             flightDetails.Price = response.data.rates.find((ratedetails) => ReplaceWhiteSpaces(ratedetails.RateType) === seatType).Rate
             updateflightDetails(flightDetails)
@@ -65,7 +65,7 @@ const FlightBooking = (props) => {
                 rateType: seatType,
                 bookedPrice: TicketPrice
             }
-            await axios.post('http://localhost:2000/booking/create', BookingDetails).then((response) => {
+            await axios.post('https://airfareapi.herokuapp.com/booking/create', BookingDetails).then((response) => {
                 if (response.status === 200) {
                     BookingDetails.FlightDetails = flightDetails
                     localStorage.setItem("bookingdetails", JSON.stringify(BookingDetails))

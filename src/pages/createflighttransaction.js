@@ -171,7 +171,7 @@ const CreateFlighTransaction = () => {
                     stops: transitStops,
                     rates: flightPrices
                 }
-                await axios.post('http://localhost:2000/transactions/createflight', flightTransaction).then((response) => {
+                await axios.post('https://airfareapi.herokuapp.com/transactions/createflight', flightTransaction).then((response) => {
                     if (response.status === 200) {
                         toast.success('Flight Created Successfully !!!')
                         setTimeout(() => window.location.href = '/flights', 3000)

@@ -20,7 +20,7 @@ const FlightDetails = () => {
     }, [locationDetails.flightId])
 
     const getflightDetails = (flightId) => {
-        axios.get(`http://localhost:2000/transactions/details/${flightId}`).then((response) => {
+        axios.get(`https://airfareapi.herokuapp.com/transactions/details/${flightId}`).then((response) => {
             updateflightDetails(response.data)
         })
     }

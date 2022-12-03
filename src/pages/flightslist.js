@@ -24,7 +24,7 @@ const FlightList = (props) => {
     useEffect(() => { fetchflightTransaction() }, [1])
 
     const fetchflightTransaction = async () => {
-        await axios.post('http://localhost:2000/transactions/flights', { filtercriteria: null }).then((response) => {
+        await axios.post('https://airfareapi.herokuapp.com/transactions/flights', { filtercriteria: null }).then((response) => {
             if (response.status === 200) {
                 if (response.data.length > 0) {
                     const flightTransactions = [...response.data]

@@ -62,7 +62,7 @@ const SignUp = () => {
     }
 
     const addNewUser = async (newuser) => {
-        await axios.post('http://localhost:2000/api/signup', newuser).then((response) => {
+        await axios.post('https://airfareapi.herokuapp.com/api/signup', newuser).then((response) => {
             if (response.status === 201) {
                 toast.success('User Created Successfully !!!');
                 setTimeout(() => { window.location.href = '/login' }, 4000)

@@ -36,7 +36,7 @@ const EditBooking = () => {
     }, [locationDetails.flightId])
 
     const getflightDetails = (flightId, seatType) => {
-        axios.get(`http://localhost:2000/transactions/details/${flightId}`).then((response) => {
+        axios.get(`https://airfareapi.herokuapp.com/transactions/details/${flightId}`).then((response) => {
             const flightDetails = response.data
             flightDetails.Price = response.data.rates.find((ratedetails) => ReplaceWhiteSpaces(ratedetails.RateType) === seatType).Rate
             updateflightDetails(flightDetails)
@@ -44,7 +44,7 @@ const EditBooking = () => {
             updateTicketPrice(flightDetails.Price)
         })
 
-        axios.post('http://localhost:2000/booking/getBookingsBasedOnFilter', { _id: locationDetails.bookingid ? locationDetails.bookingid : '' }).then((response) => {
+        axios.post('https://airfareapi.herokuapp.com/booking/getBookingsBasedOnFilter', { _id: locationDetails.bookingid ? locationDetails.bookingid : '' }).then((response) => {
             if (response.status === 200 && response.data.length > 0) {
                 updatebookdetails(response.data[0])
             }
@@ -76,7 +76,7 @@ const EditBooking = () => {
                 rateType: seatType,
                 bookedPrice: TicketPrice
             }
-            await axios.put(`http://localhost:2000/booking/updateseats/${locationDetails.bookingid}`, BookingDetails).then((response) => {
+            await axios.put(`https://airfareapi.herokuapp.com/booking/updateseats/${locationDetails.bookingid}`, BookingDetails).then((response) => {
                 if (response.status === 200) {
                     toast.success('Seats Updates Successfully !!!')
                     setTimeout(() => { window.location.href = '/managebookings' }, 4000)

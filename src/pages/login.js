@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     const loginUser = async (user) => {
-        await axios.post('http://localhost:2000/api/signin', user).then((response) => {
+        await axios.post('https://airfareapi.herokuapp.com/api/signin', user).then((response) => {
             if (response.status === 200) {
                 if (response.data) {
                     toast.success('User Logged In Successfully !!!');
