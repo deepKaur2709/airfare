@@ -42,8 +42,13 @@ const ManageBooking = () => {
         })
     }
 
-    const CancelBooking = (bookingId) => {
-        console.log(bookingId, 'bookingId')
+    const CancelBooking = async (bookingId) => {
+        await axios.delete(`http://localhost:2000/booking/remove/${bookingId}`, null).then((response) => {
+            if (response.status === 200) {
+                toast.success('Booking Deleted Successfully !!!!')
+                setTimeout(() => fetchflightDetailsandbookings(), 4000)
+            }
+        })
     }
 
 
