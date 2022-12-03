@@ -22,19 +22,21 @@ const HomePage = () => {
     }
 
     return (<div className="listwrapper">
+        <h1 className="text-center">Best Travel Expereince</h1>
+        <p className="text-center">
+            Our travel experience gives new opportunities to life
+        </p>
+
         <header className="showcase">
-            <h2>Best Travel Expereince</h2>
-            <p>
-                Our travel experience gives new opportunities to life
-            </p>
-            <a href="/flights" className="btn">
-                Shop Now <i className="fas fa-chevron-right"></i>
-            </a>
+            &nbsp;
         </header>
+        <a href="/flights" className="btn linkshop">
+            Shop Now <i className="fas fa-chevron-right"></i>
+        </a>
         <section className="home-cards">
             <div>
                 <img src={feature1} alt="" />
-                <h3>Air Canada Signature Class</h3>
+                <h2>Air Canada Signature Class</h2>
                 <p>
                     See how Katie Sowers, Asst. Coach for the 49ers, uses Surface Pro 7
                     to put her plans into play.
@@ -75,7 +77,7 @@ const HomePage = () => {
                 <p>Xbox Games are with rich live Gaming experience and over 100 high-quality
                     Games and Videos On Air. Play together with friends and discover your
                     next favorite game.</p>
-                <a href="/flights" className="btn">
+                <a href="/aboutus" className="btn">
                     Book Now <i className="fas fa-chevron-right"></i>
                 </a>
             </div>
@@ -115,17 +117,18 @@ const HomePage = () => {
                 <button className="removeDefaultStyle" onClick={(event) => { OpenFeaturePopup('Premium Economy Class', 'Learn how Kubernetes works and get started with cloud native app development today.', feature5) }}>Learn More <i className="fas fa-chevron-right"></i></button>
             </div>
         </section>
+        <p className="text-justify">AirFare's New Intiative will be carbon negative by 2030 and by 2050 we will remove
+            all carbon the company has emitted since it was founded in 1975</p>
         <section className="carbon dark">
             <div className="content">
-                <p>AirFare's New Intiative will be carbon negative by 2030 and by 2050 we will remove
-                    all carbon the company has emitted since it was founded in 1975</p>
-                <a href="/aboutus" className="btn">
+
+                <a href="/contactus" className="btn">
                     Learn More <i className="fas fa-chevron-right"></i>
                 </a>
             </div>
         </section>
         <Modal title={popuptitle} open={popOpen} onOk={() => updatePopupOpen(!popOpen)} onCancel={() => updatePopupOpen(!popOpen)}>
-           <img src={popupImage} alt="Popup Details" width={300} style={{ margin: '0 auto', display: 'block' }} />
+            <img src={popupImage} alt="Popup Details" width={300} style={{ margin: '0 auto', display: 'block' }} />
             <p className="my-3 text-center">{popupContent}</p>
         </Modal>
     </div>)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Collapse } from 'antd'
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from "axios";
 import moment from "moment";
@@ -36,7 +36,7 @@ const FlightDetails = () => {
     return (<div className="pagewrappper">
         <h1 className="text-center my-3">Flight Details</h1>
         {flightDetails && <div className="wrapper">
-            <Card title={<div><img src={logoimagemapping[ReplaceWhiteSpaces(flightDetails.FlightName)]} className="flightLogo" alt="flightLogo" />&nbsp;&nbsp;{flightDetails.FlightName}</div>} bordered={false} extra={<div><h4>$ {flightDetails.economyPrice}</h4></div>} className="flightDetails">
+            <Card title={<div><img src={logoimagemapping[ReplaceWhiteSpaces(flightDetails.FlightName)]} className="flightLogo" alt="flightLogo" />&nbsp;&nbsp;{flightDetails.FlightName}</div>} bordered={false} extra={<div><h2>$ {flightDetails.economyPrice}</h2></div>} className="flightDetails">
                 <div className="flightdetailswrapper">
                     <div className="flightdetailsmetrics">
                         <label><b>Total Duration</b></label>
@@ -73,7 +73,7 @@ const FlightDetails = () => {
                 </div>
             </Card>
             {flightDetails.stops.length > 0 && <React.Fragment>
-                <h4 className="stopstitle">Stops</h4>
+                <h3 className="stopstitle">Stops</h3>
                 <Collapse accordion className="stopspanel">
                     {flightDetails.stops.map((stopDetails) => {
                         return (<Panel header={`Transit at ${stopDetails.airportname}`} key="1">
@@ -104,7 +104,7 @@ const FlightDetails = () => {
                 </Collapse>
             </React.Fragment>}
             {flightDetails.rates.length > 0 && <React.Fragment>
-                <h4 className="stopstitle">Rate Card</h4>
+                <h3 className="stopstitle">Rate Card</h3>
                 <div className="d-flex justify-content-around mx-auto" style={{ width: '70%' }}>
                     {flightDetails.rates.map((rateDetails) => {
                         return (<div className="columns">

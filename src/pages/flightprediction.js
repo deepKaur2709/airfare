@@ -83,11 +83,12 @@ const FlightPrediction = () => {
     }
 
     return (<div>
-        <h1 className="title">Flight Delay Prediction</h1>
+        <h1 className="title">Flight Prediction</h1>
         <div className="formwrapper">
             <div className="formdetails">
-                <label>Origin Airport</label>
+                <label for="originairport">Origin Airport</label>
                 <Select
+                    id="originairport"
                     showSearch
                     placeholder="Select a Airport"
                     value={originAirport}
@@ -96,8 +97,9 @@ const FlightPrediction = () => {
                 </Select>
             </div>
             <div className="formdetails">
-                <label>Destination Airport</label>
+                <label for="destinationairport">Destination Airport</label>
                 <Select
+                    id="destinationairport"
                     showSearch
                     placeholder="Select a Airport"
                     value={destinationAirport}
@@ -106,45 +108,47 @@ const FlightPrediction = () => {
                 </Select>
             </div>
             <div className="formdetails">
-                <label>Aircraft Code</label>
+                <label for="aircraftcode">Aircraft Code</label>
                 <Select
+                    id="aircraftcode"
                     showSearch
                     placeholder="Select a Airport"
                     value={aircraftCode} onChange={(code) => updateaircraftCode(code)} options={aircraftList.map((carrier, index) => Object.assign({ key: `${index}_${carrier.iataCode}`, label: `${carrier.description} (${carrier.iataCode})`, value: carrier.iataCode }))}></Select>
             </div>
             <div className="formdetails">
-                <label>Departure Date</label>
-                <DatePicker value={departureDate} onChange={(departureDate) => updateDeparuteDate(departureDate)} />
+                <label for="departuredate" >Departure Date</label>
+                <DatePicker id="departuredate" value={departureDate} onChange={(departureDate) => updateDeparuteDate(departureDate)} />
             </div>
             <div className="formdetails">
-                <label>Departure Time</label>
-                <TimePicker value={departureTime} onChange={(Time) => updateDeparuteTime(Time)} format={format} />
+                <label for="departuretime" >Departure Time</label>
+                <TimePicker id="departuretime" value={departureTime} onChange={(Time) => updateDeparuteTime(Time)} format={format} />
             </div>
             <div className="formdetails">
-                <label>Carrier Code</label>
+                <label for="carriercode" >Carrier Code</label>
                 <Select
+                    id="carriercode"
                     showSearch
                     placeholder="Select a Airport" value={carrierCode} onChange={(code) => updatecarrierCode(code)} options={carrrierCodes.map((carrierCode, index) => Object.assign({ key: `${index}_${carrierCode}`, label: carrierCode, value: carrierCode }))}></Select>
             </div>
             <div className="formdetails">
-                <label>Arrival Date</label>
-                <DatePicker value={arrivalDate} onChange={(arrivalDate) => updateArrivalDate(arrivalDate)} />
+                <label for="arrivaldate" >Arrival Date</label>
+                <DatePicker value={arrivalDate} id="arrivaldate" onChange={(arrivalDate) => updateArrivalDate(arrivalDate)} />
             </div>
             <div className="formdetails">
-                <label>Arrival Time</label>
-                <TimePicker value={arrivalTime} onChange={(Time) => updateArrivalTime(Time)} format={format} />
+                <label for="arrivaltime" >Arrival Time</label>
+                <TimePicker id="arrivaltime" value={arrivalTime} onChange={(Time) => updateArrivalTime(Time)} format={format} />
             </div>
             <div className="formdetails">
-                <label>Flight Number</label>
-                <Input className="resetTextInput" placeholder="Enter a Flight Number" size="small" value={flightNumber} onChange={(event) => updateflightNumber(event.target.value)}></Input>
+                <label for="flightnumber" >Flight Number</label>
+                <Input id="flightnumber" className="resetTextInput" placeholder="Enter a Flight Number" size="small" value={flightNumber} onChange={(event) => updateflightNumber(event.target.value)}></Input>
             </div>
             <div className="formdetails">
-                <label>Duration</label>
-                <Input className="resetTextInput" placeholder="Enter Duration" size="small" value={duration} onChange={(event) => updateDuration(event.target.value)}></Input>
+                <label for="duration" >Duration</label>
+                <Input id="duration" className="resetTextInput" placeholder="Enter Duration" size="small" value={duration} onChange={(event) => updateDuration(event.target.value)}></Input>
             </div>
             <div className="formdetails">
-                <label>&nbsp;</label>
-                <Button type="primary" loading={loading} onClick={getPredictions}>Get Predictions</Button>
+                <span className="mt-3">&nbsp;</span>
+                <Button type="primary" className="text-dark" loading={loading} onClick={getPredictions}>Get Predictions</Button>
             </div>
         </div>
         <div className="tableWrapper">

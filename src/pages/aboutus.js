@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import aboutUsImage from '../images/aboutusbanner.jpg'
+import womanImage from '../images/woman.png'
+import teamimageone from '../images/undefined.webp'
 
 class AboutUs extends Component {
     constructor(props) {
@@ -22,7 +24,7 @@ class AboutUs extends Component {
                     <div className="row">
                         <div className="col-sm-6 align-vertical no-align-mobile">
                             <h1>Why Airfare ?</h1>
-                            <h6>Because We love to service People !</h6>
+                            <h2>Because We love to service People !</h2>
                             <p className="lead">
                                 The airline is the second largest Canada based carrier, based on fleet size and passengers carried.
                                 And It is also the world's third-largest airline group in terms of annual revenue and the second-largest in Canada.
@@ -37,7 +39,7 @@ class AboutUs extends Component {
             <section className="duplicatable-content">
                 <div className="row">
                     <div className="col-md-12 text-center">
-                        <h1 className="py-4">A few things you need to know</h1>
+                        <h2 className="py-4">A few things you need to know</h2>
                     </div>
                 </div>
                 <div className="container">
@@ -45,10 +47,10 @@ class AboutUs extends Component {
                         <div className="col-sm-6">
                             <div className="feature feature-icon-large">
                                 <div className="pull-left">
-                                <i className="fad fa-ticket"></i>
+                                    <i className="fad fa-ticket"></i>
                                 </div>
                                 <div className="pull-right">
-                                    <h5>Priority Check-In</h5>
+                                    <h3>Priority Check-In</h3>
                                     <p>
                                         Dedicated Priority Check-In counters for accelerated services are available at all airports. Air Canada Signature Class passengers departing from a Canadian airport receive personalized check-in service from our team of specially trained Premium Agents.
                                     </p>
@@ -61,7 +63,7 @@ class AboutUs extends Component {
                                     <i className="icon icon-phone"></i>
                                 </div>
                                 <div className="pull-right">
-                                    <h5>Concierge Service</h5>
+                                    <h3>Concierge Service</h3>
                                     <p>
                                         Our industry-leading concierges are there to help with check-in assistance inside our exclusive concierge offices at our Toronto, Montreal and Vancouver airports
                                     </p>
@@ -74,7 +76,7 @@ class AboutUs extends Component {
                                     <i className="icon icon-strategy"></i>
                                 </div>
                                 <div className="pull-right">
-                                    <h5>Exclusive Lounge Access</h5>
+                                    <h3>Exclusive Lounge Access</h3>
                                     <p>
                                         Located at Toronto Pearson International Airport and Vancouver International Airport, our two luxury suites feature complimentary à la carte dining with dishes created by Air Canada’s award-winning chef
                                     </p>
@@ -87,7 +89,7 @@ class AboutUs extends Component {
                                     <i className="icon icon-profile-male"></i>
                                 </div>
                                 <div className="pull-right">
-                                    <h5>Air Canada Chauffeur Service</h5>
+                                    <h3>Air Canada Chauffeur Service</h3>
                                     <p>
                                         Air Canada Chauffeur Service, our one-of-a-kind airport premium experience in Canada, is being reintroduced to eligible customers in partnership with one of the world’s most iconic luxury car brands, Porsche.
                                     </p>
@@ -102,8 +104,9 @@ class AboutUs extends Component {
                 <div className="column_w3">
                     <div className="card_w3">
                         <div className="container_w3">
+                            <img src={teamimageone} className="teamimage" alt="team member - Sai Reddy" />
                             <h2>Sai Reddy</h2>
-                            <p className="title">Frontend Developer</p>
+                            <p className="title fnt-color-black">Frontend Developer</p>
                             <p>Primarily Contributes to Frontend Developement</p>
                             <p>saireddybandi086@gmail.com</p>
                             <p><button className="button">Contact</button></p>
@@ -114,8 +117,9 @@ class AboutUs extends Component {
                 <div className="column_w3">
                     <div className="card_w3">
                         <div className="container_w3">
+                            <img src={womanImage} className="teamimage" alt="team member - Sai Reddy" />
                             <h2>Deep kaur</h2>
-                            <p className="title">Backend Developer</p>
+                            <p className="title fnt-color-black">Backend Developer</p>
                             <p>Primarily Contributes to Backend Developement</p>
                             <p>mndeepkaur2007@gmail.com</p>
                             <p><button className="button">Contact</button></p>
@@ -126,8 +130,9 @@ class AboutUs extends Component {
                 <div className="column_w3">
                     <div className="card_w3">
                         <div className="container_w3">
+                            <img src={womanImage} className="teamimage" alt="team member - Sai Reddy" />
                             <h2>Sapna Sandhu</h2>
-                            <p className="title">Database Developer</p>
+                            <p className="title fnt-color-black">Database Developer</p>
                             <p>Primarily Contributes to Database Development</p>
                             <p>sapnasandhu15@gmail.com</p>
                             <p><button className="button">Contact</button></p>
@@ -135,7 +140,7 @@ class AboutUs extends Component {
                     </div>
                 </div>
             </div>
-            
+
         </React.Fragment>)
     }
 

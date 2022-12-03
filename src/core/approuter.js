@@ -13,6 +13,15 @@ import HomePage from '../pages/homepage'
 import FlightBooking from '../pages/flightbooking'
 import ManageBooking from '../pages/managebookings'
 import FlightPrediction from '../pages/flightprediction'
+import AdminSignUp from '../pages/adminsignup'
+import AdminLogin from '../pages/adminlogin'
+import AdminDashboard from '../pages/admindashboard'
+import CreateFlighTransaction from '../pages/createflighttransaction'
+import Payment from '../pages/payment'
+import ExternalFlightList from '../pages/aviationstacklist'
+import EditBooking from '../pages/editbooking'
+import AviationStackFlightBooking from '../pages/aviationstackbooking'
+import AviationPayment from '../pages/aviationstackpayment'
 
 export default function AppRouter() {
 
@@ -34,6 +43,15 @@ export default function AppRouter() {
                         <Route path="/flightbooking/:flightId/:seattype" element={<FlightBooking />} />
                         <Route path="/managebookings" element={<ManageBooking />} />
                         <Route path="/flightprediction" element={<FlightPrediction />} />
+                        <Route path="/adminsignin" element={<AdminLogin />} />
+                        <Route path="/adminsignup" element={<AdminSignUp />} />
+                        <Route path="/admindashboard" element={<AdminDashboard />} />
+                        <Route path="/createflight" element={<CreateFlighTransaction />} />
+                        <Route path="/payment" element={<Payment />} />
+                        <Route path="/externalflights" element={<ExternalFlightList />} />
+                        <Route path="/editseats/:bookingid/:flightid/:seattype" element={<EditBooking />} />
+                        <Route path="/aviationstackflightbooking/:flightId/:seattype" element={<AviationStackFlightBooking />} />
+                        <Route path="/aviationstackpayment" element={<AviationPayment />} />
                     </Routes>
                 </Suspense>
             </Router>

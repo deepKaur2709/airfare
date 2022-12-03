@@ -20,29 +20,22 @@ const Seats = [[{ Seat: '1A', Booked: false }, { Seat: '1B', Booked: false }, { 
 [{ Seat: '10A', Booked: false }, { Seat: '10B', Booked: false }, { Seat: '10C', Booked: false }, { Seat: '10D', Booked: false }, { Seat: '10E', Booked: false }, { Seat: '10F', Booked: false }
 ]]
 
-const FlightBooking = (props) => {
+const AviationStackFlightBooking = (props) => {
     const locationDetails = useParams();
-    const [flightDetails, updateflightDetails] = useState(null)
+    const [flightDetails, updateflightDetails] = useState(localStorage.getItem('aviationstackdetails') ? JSON.parse(localStorage.getItem('aviationstackdetails')) : null)
     const [seatType, updateseatType] = useState(null)
     const [flightSeats, updateflightSeats] = useState([])
     const [BookedSeats, updateBookedSeats] = useState([])
     const [TicketPrice, updateTicketPrice] = useState([])
     const [userdetails, updateuserdetails] = useState(localStorage.getItem('userdetails') ? JSON.parse(localStorage.getItem('userdetails')) : null)
+    const [flightid, updateflightid] = useState('')
 
     useEffect(() => {
-        getflightDetails(locationDetails.flightId, locationDetails.seattype)
         updateflightSeats(Seats)
+        updateTicketPrice('1000')
+        updateseatType(locationDetails.seattype)
+        updateflightid(locationDetails.flightId)
     }, [locationDetails.flightId])
-
-    const getflightDetails = (flightId, seatType) => {
-        axios.get(`http://localhost:2000/transactions/details/${flightId}`).then((response) => {
-            const flightDetails = response.data
-            flightDetails.Price = response.data.rates.find((ratedetails) => ReplaceWhiteSpaces(ratedetails.RateType) === seatType).Rate
-            updateflightDetails(flightDetails)
-            updateseatType(seatType)
-            updateTicketPrice(flightDetails.Price)
-        })
-    }
 
     const updateRowSeats = (rowseat) => {
         const Seats = new Set([...BookedSeats])
@@ -53,27 +46,21 @@ const FlightBooking = (props) => {
         }
         const finalSeats = [...Seats]
         updateBookedSeats(finalSeats)
-        updateTicketPrice(parseInt(parseFloat(flightDetails.Price) * finalSeats.length))
+        updateTicketPrice(parseInt(parseFloat(1000) * finalSeats.length))
     }
 
     const BookTickets = async () => {
         if (BookedSeats.length > 0) {
             const BookingDetails = {
                 customerId: userdetails._id,
-                flightId: flightDetails._id,
+                flightId: flightid,
                 seats: BookedSeats,
                 rateType: seatType,
                 bookedPrice: TicketPrice
             }
-            await axios.post('http://localhost:2000/booking/create', BookingDetails).then((response) => {
-                if (response.status === 200) {
-                    BookingDetails.FlightDetails = flightDetails
-                    localStorage.setItem("bookingdetails", JSON.stringify(BookingDetails))
-                    setTimeout(() => { window.location.href = '/payment' }, 4000)
-                } else {
-                    toast.error('Tickets Booking Failed. Please Try Again Later !')
-                }
-            })
+            BookingDetails.FlightDetails = flightDetails
+            localStorage.setItem("aviationstackbookingdetails", JSON.stringify(BookingDetails))
+            setTimeout(() => { window.location.href = '/payment' }, 4000)
         } else {
             toast.error('Please select a seat to book ticket !')
         }
@@ -81,41 +68,41 @@ const FlightBooking = (props) => {
 
 
     return (<div className="pagewrappper">
-        <h1 className="text-center my-3">Flight Booking - {seatType}</h1>
+        <h1 className="text-center my-3">Aviation Stack Flight Booking - {seatType}</h1>
         {flightDetails && <div className="wrapper">
-            <Card title={<div><img src={logoimagemapping[ReplaceWhiteSpaces(flightDetails.FlightName)]} className="flightLogo" alt="flightLogo" />&nbsp;&nbsp;{flightDetails.FlightName}</div>} bordered={false} extra={<div><h2>$ {TicketPrice} {`(${BookedSeats.length} Tickets Booked)`}</h2></div>} className="flightDetails">
+            <Card title={<div>{flightDetails.airline.name}</div>} bordered={false} extra={<div><h4>$ {TicketPrice} {`(${BookedSeats.length} Tickets Booked)`}</h4></div>} className="flightDetails">
                 <div className="flightdetailswrapper">
                     <div className="flightdetailsmetrics">
-                        <label><b>Total Duration</b></label>
-                        <span>{flightDetails.TotalDuration}</span>
-                    </div>
-                    <div className="flightdetailsmetrics">
                         <label><b>Origin Airport</b></label>
-                        <span>{flightDetails.Origin}</span>
+                        <span>{flightDetails.departure.airport}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Destination Airport</b></label>
-                        <span>{flightDetails.Destination}</span>
-                    </div>
-                    <div className="flightdetailsmetrics">
-                        <label><b>Flight Type</b></label>
-                        <span>{flightDetails.flightmanufacturer}</span>
+                        <span>{flightDetails.arrival.airport}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Departure Date & Time</b></label>
-                        <span>{moment(flightDetails.departureDateTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>{moment(flightDetails.departure.estimated).format('DD-MM-YYYY hh:mm')}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Arrival Date & Time</b></label>
-                        <span>{moment(flightDetails.arrivalDateTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>{moment(flightDetails.arrival.estimated).format('DD-MM-YYYY hh:mm')}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Origin Terminal </b></label>
-                        <span>{flightDetails.arrivalTerminal}</span>
+                        <span>{flightDetails.arrival.terminal || ''}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Destination Terminal</b></label>
-                        <span>{flightDetails.destinationTerminal}</span>
+                        <span>{flightDetails.departure.terminal || 'Not Available'}</span>
+                    </div>
+                    <div className="flightdetailsmetrics">
+                        <label><b>Destination TimeZone</b></label>
+                        <span>{flightDetails.arrival.timezone || 'Not Available'}</span>
+                    </div>
+                    <div className="flightdetailsmetrics">
+                        <label><b>Origin TimeZone</b></label>
+                        <span>{flightDetails.departure.timezone || 'Not Available'}</span>
                     </div>
                     <button className="BookTickets" onClick={BookTickets}>Book Ticket</button>
                 </div>
@@ -151,4 +138,4 @@ const FlightBooking = (props) => {
     </div>)
 }
 
-export default FlightBooking
+export default AviationStackFlightBooking

@@ -99,11 +99,12 @@ const FlightList = (props) => {
     }
 
     return (<div className="pagewrappper">
-        <h2 className="text-center my-3">Flight Lists</h2>
+        <h1 className="text-center my-3">Airfare Flight Lists</h1>
+        <h2 className="text-center my-3">Internal Flights</h2>
         <div className="filterwrapper">
             <div className="filterfield">
-                <label className="mb-1"><b>Flight Name</b></label>
-                <Select value={flightName} onChange={(flightname) => updateFlightName(flightname)}>
+                <label className="mb-1" for="flightname"><b>Flight Name</b></label>
+                <Select value={flightName} id="flightname" title="Flight Name" onChange={(flightname) => updateFlightName(flightname)}>
                     <Option value="">All Flights</Option>
                     {flightNames.map((flightname) => {
                         return <Option key={flightname} value={flightname}>{flightname}</Option>
@@ -111,8 +112,8 @@ const FlightList = (props) => {
                 </Select>
             </div>
             <div className="filterfield">
-                <label className="mb-1"><b>Origin Location</b></label>
-                <Select value={originAipportName} onChange={(originaipport) => updateOriginAirportName(originaipport)}>
+                <label className="mb-1" for="originlocation" ><b>Origin Location</b></label>
+                <Select value={originAipportName} id="originlocation" onChange={(originaipport) => updateOriginAirportName(originaipport)}>
                     <Option value="">All Locations</Option>
                     {originAirports.map((airport) => {
                         return <Option key={airport} value={airport}>{airport}</Option>
@@ -120,8 +121,8 @@ const FlightList = (props) => {
                 </Select>
             </div>
             <div className="filterfield">
-                <label className="mb-1"><b>Destination Location</b></label>
-                <Select value={destAipportName} onChange={(destinationairport) => updateDestAirportName(destinationairport)}>
+                <label className="mb-1" for="destinationlocation" ><b>Destination Location</b></label>
+                <Select value={destAipportName} id="destinationlocation" onChange={(destinationairport) => updateDestAirportName(destinationairport)}>
                     <Option value="">All Locations</Option>
                     {destAirports.map((airport) => {
                         return <Option key={airport} value={airport}>{airport}</Option>
@@ -129,12 +130,12 @@ const FlightList = (props) => {
                 </Select>
             </div>
             <div className="filterfield">
-                <label className="mb-1"><b>Departure Date</b></label>
-                <DatePicker value={departureDate} onChange={(departureDate) => updateDepartureDate(departureDate)} />
+                <label className="mb-1" for="departuredate"><b>Departure Date</b></label>
+                <DatePicker value={departureDate} id="departuredate" onChange={(departureDate) => updateDepartureDate(departureDate)} />
             </div>
             <div className="filterfield">
-                <label className="mb-1"><b>Price Range</b></label>
-                <Select value={priceRange} onChange={(priceRange) => updatePriceRange(priceRange)}>
+                <label className="mb-1" for="pricerange" ><b>Price Range</b></label>
+                <Select value={priceRange} id="pricerange" onChange={(priceRange) => updatePriceRange(priceRange)}>
                     <Option value="">All Price Ranges</Option>
                     <Option value="1">$500 - $1000</Option>
                     <Option value="2">$1000 - $1500</Option>
@@ -144,8 +145,8 @@ const FlightList = (props) => {
                 </Select>
             </div>
             <div className="filterfield">
-                <label className="mb-1"><b>Airplane Type</b></label>
-                <Select value={airplaneType} onChange={(airplaneType) => updateAirplaneType(airplaneType)}>
+                <label className="mb-1" for="airplanetype"><b>Airplane Type</b></label>
+                <Select value={airplaneType} id="airplanetype" onChange={(airplaneType) => updateAirplaneType(airplaneType)}>
                     <Option value="">All Types</Option>
                     {airplaneTypes.map((airplaneType) => {
                         return <Option key={airplaneType} value={airplaneType}>{airplaneType}</Option>
@@ -153,18 +154,18 @@ const FlightList = (props) => {
                 </Select>
             </div>
             <div className="w-100 d-flex justify-content-center my-3">
-                <Button type="primary" className="w-25" onClick={SearchFlights}>Search</Button>
+                <Button type="primary" className="w-25 text-dark" onClick={SearchFlights}>Search</Button>
             </div>
         </div>
         <div className="listwrapper">
             {transactions.map((flighttransaction) => {
                 return (<div className="details" key={flighttransaction._id}>
                     <div className="flight">
-                        <img src={logoimagemapping[ReplaceWhiteSpaces(flighttransaction.FlightName)]} className="flightlogo" alt="flight logo" />
-                        <h4>{flighttransaction.FlightName}</h4>
+                        <img src={logoimagemapping[ReplaceWhiteSpaces(flighttransaction.FlightName)]} className="flightlogo" alt={`flight logo ${ReplaceWhiteSpaces(flighttransaction.FlightName)}`} />
+                        <h3>{flighttransaction.FlightName}</h3>
                     </div>
                     <div className="origin">
-                        <h4>{flighttransaction.Origin}</h4>
+                        <h3>{flighttransaction.Origin}</h3>
                         <span>{`(${moment(flighttransaction.departureDateTime).format('DD-MM-YYYY hh:mm')})`}</span>
                     </div>
                     <div className="airtime">
@@ -179,7 +180,7 @@ const FlightList = (props) => {
                         <h4>$ {flighttransaction.economyPrice}</h4>
                     </div>
                     <div className="action">
-                        <Link to={{
+                        <Link className="CancelBookingLink" to={{
                             pathname: `/flightdetails/${flighttransaction._id}`,
                             state: { details: flighttransaction }
                         }}>View Details</Link>

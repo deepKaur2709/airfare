@@ -8,10 +8,10 @@ import { toast } from "react-toastify";
 import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import Logo from '../images/Logo.png'
 
-const Payment = () => {
+const AviationPayment = () => {
     const [flightDetails, updateflightDetails] = useState(localStorage.getItem('bookingdetails') ? JSON.parse(localStorage.getItem('bookingdetails')).FlightDetails : null)
     const [userdetails, updateuserdetails] = useState(localStorage.getItem('userdetails') ? JSON.parse(localStorage.getItem('userdetails')) : null)
-    const [bookingdetails, updatebookingdetails] = useState(localStorage.getItem('bookingdetails') ? JSON.parse(localStorage.getItem('bookingdetails')) : null)
+    const [bookingdetails, updatebookingdetails] = useState(localStorage.getItem('aviationstackbookingdetails') ? JSON.parse(localStorage.getItem('aviationstackbookingdetails')) : null)
     const [orderID, setOrderID] = useState(false);
     const [success, setSuccess] = useState(false);
     const [paymentDetails, updatePaymentDetails] = useState(null)
@@ -96,41 +96,41 @@ const Payment = () => {
 
     return (<div>
         <h1 className="text-center">Payment via PayPal</h1>
-        <h2 className="text-center my-3">Flight Booking - {bookingdetails ? bookingdetails.rateType ? bookingdetails.rateType : '' : ''}</h2>
+        <h1 className="text-center my-3">Flight Booking - {bookingdetails ? bookingdetails.rateType ? bookingdetails.rateType : '' : ''}</h1>
         {flightDetails && <div className="wrapper">
-            <Card title={<div><img src={logoimagemapping[ReplaceWhiteSpaces(flightDetails.FlightName)]} className="flightLogo" alt="flightLogo" />&nbsp;&nbsp;{flightDetails.FlightName}</div>} bordered={false} extra={<div><h3>$ {bookingdetails.bookedPrice} {`(${bookingdetails.seats.length} Tickets)`}</h3></div>} className="flightDetails">
+            <Card title={<div>{flightDetails.airline.name}</div>} bordered={false} extra={<div><h4>$ {bookingdetails.bookedPrice} {`(${bookingdetails.seats.length} Tickets Booked)`}</h4></div>} className="flightDetails">
                 <div className="flightdetailswrapper">
                     <div className="flightdetailsmetrics">
-                        <label><b>Total Duration</b></label>
-                        <span>{flightDetails.TotalDuration}</span>
-                    </div>
-                    <div className="flightdetailsmetrics">
                         <label><b>Origin Airport</b></label>
-                        <span>{flightDetails.Origin}</span>
+                        <span>{flightDetails.departure.airport}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Destination Airport</b></label>
-                        <span>{flightDetails.Destination}</span>
-                    </div>
-                    <div className="flightdetailsmetrics">
-                        <label><b>Flight Type</b></label>
-                        <span>{flightDetails.flightmanufacturer}</span>
+                        <span>{flightDetails.arrival.airport}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Departure Date & Time</b></label>
-                        <span>{moment(flightDetails.departureDateTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>{moment(flightDetails.departure.estimated).format('DD-MM-YYYY hh:mm')}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Arrival Date & Time</b></label>
-                        <span>{moment(flightDetails.arrivalDateTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>{moment(flightDetails.arrival.estimated).format('DD-MM-YYYY hh:mm')}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Origin Terminal </b></label>
-                        <span>{flightDetails.arrivalTerminal}</span>
+                        <span>{flightDetails.arrival.terminal || ''}</span>
                     </div>
                     <div className="flightdetailsmetrics">
                         <label><b>Destination Terminal</b></label>
-                        <span>{flightDetails.destinationTerminal}</span>
+                        <span>{flightDetails.departure.terminal || 'Not Available'}</span>
+                    </div>
+                    <div className="flightdetailsmetrics">
+                        <label><b>Destination TimeZone</b></label>
+                        <span>{flightDetails.arrival.timezone || 'Not Available'}</span>
+                    </div>
+                    <div className="flightdetailsmetrics">
+                        <label><b>Origin TimeZone</b></label>
+                        <span>{flightDetails.departure.timezone || 'Not Available'}</span>
                     </div>
                 </div>
             </Card>
@@ -251,7 +251,7 @@ const Payment = () => {
                             </View>
                             <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'space-between' }}>
                                 <Text style={{ ...styles.label }}>Payment ID<small>(inc tax)</small></Text>
-                                <Text style={{ ...styles.labelvalue }}>{paymentDetails ? paymentDetails.id ?  paymentDetails.id : '' : ''}</Text>
+                                <Text style={{ ...styles.labelvalue }}>{paymentDetails ? paymentDetails.id ? paymentDetails.id : '' : ''}</Text>
                             </View>
                         </View>
                     </Page>
@@ -261,4 +261,4 @@ const Payment = () => {
     </div>)
 }
 
-export default Payment
+export default AviationPayment

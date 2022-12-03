@@ -6,7 +6,7 @@ const ContactUs = (props) => {
 
     return (<div className="container my-5">
         <div style={{ textAlign: 'center' }}>
-            <h2>Contact Us</h2>
+            <h1>Contact Us</h1>
             <p>Swing by for a cup of coffee, or leave us a message:</p>
         </div>
         <div className="row_w4">
@@ -27,7 +27,7 @@ const ContactUs = (props) => {
                     </select>
                     <label for="subject">Subject</label>
                     <textarea id="subject" name="subject" placeholder="Write something.." style={{ height: '170px' }}></textarea>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" className="text-dark" value="Submit" />
                 </form>
             </div>
         </div>

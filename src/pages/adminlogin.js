@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from 'react-toastify';
 import axios from 'axios'
 
-const Login = () => {
+const AdminLogin = () => {
     const [Email, updateEmail] = useState('')
     const [Password, updatePassword] = useState('')
     const validateSignup = (event) => {
@@ -39,14 +39,14 @@ const Login = () => {
     }
 
     const loginUser = async (user) => {
-        await axios.post('http://localhost:2000/api/signin', user).then((response) => {
+        await axios.post('http://localhost:2000/admin/signin', user).then((response) => {
             if (response.status === 200) {
                 if (response.data) {
-                    toast.success('User Logged In Successfully !!!');
-                    localStorage.setItem('userdetails', JSON.stringify(response.data))
+                    toast.success('Admin Logged In Successfully !!!');
+                    localStorage.setItem('admindetails', JSON.stringify(response.data))
                     setTimeout(() => { window.location.href = '/' }, 4000)
                 } else {
-                    toast.warn('User Invalid Credentials !!!');
+                    toast.warn('Admin Invalid Credentials !!!');
                 }
             } else {
                 toast.warn('Something Went Wrong ! Please try again later !');
@@ -55,24 +55,24 @@ const Login = () => {
     }
 
 
-    return (<div className="body login_bg">
+    return (<div className="body adminlogin_bg">
         <div className="login-box">
             <i className="fas fa-user fa-3x"></i>
-            <h1>login here</h1>
+            <h1 style={{ color: '#fff' }}>Admin Login here</h1>
             <div className="text-box">
-                <label for="custemail">Email</label>
-                <input type="text" id="custemail" placeholder="Enter Email" value={Email} onChange={(event) => updateEmail(event.target.value)} />
+                <label for="adminemail">Admin Email</label>
+                <input type="text" id="adminemail" placeholder="Enter Email" value={Email} onChange={(event) => updateEmail(event.target.value)} />
             </div>
             <div className="text-box">
-                <label for="custpassword">Password</label>
-                <input type="password" id="custpassword" placeholder="Enter Password" value={Password} onChange={(event) => updatePassword(event.target.value)} />
+                <label for="adminpassword">Admin Password</label>
+                <input type="password" id="adminpassword" placeholder="Enter Password" value={Password} onChange={(event) => updatePassword(event.target.value)} />
             </div>
             <div className="text-box">
                 <input type="submit" value="Login" onClick={(event) => validateSignup(event)} />
             </div>
-            <a href="/signup">Don't have an account ?</a>
+            <a href="/adminsignup">Don't have an account ?</a>
         </div>
     </div>)
 }
 
-export default Login
+export default AdminLogin

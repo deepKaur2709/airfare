@@ -20,7 +20,7 @@ const Seats = [[{ Seat: '1A', Booked: false }, { Seat: '1B', Booked: false }, { 
 [{ Seat: '10A', Booked: false }, { Seat: '10B', Booked: false }, { Seat: '10C', Booked: false }, { Seat: '10D', Booked: false }, { Seat: '10E', Booked: false }, { Seat: '10F', Booked: false }
 ]]
 
-const FlightBooking = (props) => {
+const EditBooking = () => {
     const locationDetails = useParams();
     const [flightDetails, updateflightDetails] = useState(null)
     const [seatType, updateseatType] = useState(null)
@@ -28,9 +28,10 @@ const FlightBooking = (props) => {
     const [BookedSeats, updateBookedSeats] = useState([])
     const [TicketPrice, updateTicketPrice] = useState([])
     const [userdetails, updateuserdetails] = useState(localStorage.getItem('userdetails') ? JSON.parse(localStorage.getItem('userdetails')) : null)
+    const [bookdetails, updatebookdetails] = useState(null)
 
     useEffect(() => {
-        getflightDetails(locationDetails.flightId, locationDetails.seattype)
+        getflightDetails(locationDetails.flightid, locationDetails.seattype)
         updateflightSeats(Seats)
     }, [locationDetails.flightId])
 
@@ -41,6 +42,12 @@ const FlightBooking = (props) => {
             updateflightDetails(flightDetails)
             updateseatType(seatType)
             updateTicketPrice(flightDetails.Price)
+        })
+
+        axios.post('http://localhost:2000/booking/getBookingsBasedOnFilter', { _id: locationDetails.bookingid ? locationDetails.bookingid : '' }).then((response) => {
+            if (response.status === 200 && response.data.length > 0) {
+                updatebookdetails(response.data[0])
+            }
         })
     }
 
@@ -56,8 +63,12 @@ const FlightBooking = (props) => {
         updateTicketPrice(parseInt(parseFloat(flightDetails.Price) * finalSeats.length))
     }
 
-    const BookTickets = async () => {
-        if (BookedSeats.length > 0) {
+    const updateSeats = async () => {
+        if (BookedSeats.length <= 0) {
+            toast.error('Please select a seat to update the booking !')
+        } else if (BookedSeats.length > bookdetails.seats.length) {
+            toast.error(`You can select upto ${bookdetails.seats.length} seats !`)
+        } else {
             const BookingDetails = {
                 customerId: userdetails._id,
                 flightId: flightDetails._id,
@@ -65,23 +76,19 @@ const FlightBooking = (props) => {
                 rateType: seatType,
                 bookedPrice: TicketPrice
             }
-            await axios.post('http://localhost:2000/booking/create', BookingDetails).then((response) => {
+            await axios.put(`http://localhost:2000/booking/updateseats/${locationDetails.bookingid}`, BookingDetails).then((response) => {
                 if (response.status === 200) {
-                    BookingDetails.FlightDetails = flightDetails
-                    localStorage.setItem("bookingdetails", JSON.stringify(BookingDetails))
-                    setTimeout(() => { window.location.href = '/payment' }, 4000)
+                    toast.success('Seats Updates Successfully !!!')
+                    setTimeout(() => { window.location.href = '/managebookings' }, 4000)
                 } else {
-                    toast.error('Tickets Booking Failed. Please Try Again Later !')
+                    toast.error('Seat Updation Failed. Please Try Again Later !')
                 }
             })
-        } else {
-            toast.error('Please select a seat to book ticket !')
         }
     }
 
-
-    return (<div className="pagewrappper">
-        <h1 className="text-center my-3">Flight Booking - {seatType}</h1>
+    return (<div>
+        <h1 className="text-center my-3">Edit Seats - {seatType}</h1>
         {flightDetails && <div className="wrapper">
             <Card title={<div><img src={logoimagemapping[ReplaceWhiteSpaces(flightDetails.FlightName)]} className="flightLogo" alt="flightLogo" />&nbsp;&nbsp;{flightDetails.FlightName}</div>} bordered={false} extra={<div><h2>$ {TicketPrice} {`(${BookedSeats.length} Tickets Booked)`}</h2></div>} className="flightDetails">
                 <div className="flightdetailswrapper">
@@ -117,7 +124,7 @@ const FlightBooking = (props) => {
                         <label><b>Destination Terminal</b></label>
                         <span>{flightDetails.destinationTerminal}</span>
                     </div>
-                    <button className="BookTickets" onClick={BookTickets}>Book Ticket</button>
+                    <button className="BookTickets" onClick={updateSeats}>Update Seats</button>
                 </div>
             </Card>
         </div>}
@@ -151,4 +158,4 @@ const FlightBooking = (props) => {
     </div>)
 }
 
-export default FlightBooking
+export default EditBooking

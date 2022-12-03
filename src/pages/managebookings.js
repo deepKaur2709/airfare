@@ -51,18 +51,23 @@ const ManageBooking = () => {
         })
     }
 
+    const EditSeats = async (bookingid, flightid, rateType) => {
+        window.location.href = `/editseats/${bookingid}/${flightid}/${rateType}`
+    }
+
 
     return (<div>
         <h1 className="text-center my-3">Manage Bookings</h1>
+        <h2 className="text-center my-3">Internal Flights</h2>
         <div className="listwrapper">
             {bookings.map((bookingDetails) => {
                 return (<div className="details" key={bookingDetails._id}>
                     <div className="flight">
-                        <img src={logoimagemapping[ReplaceWhiteSpaces(bookingDetails.flightDetails.FlightName)]} className="flightlogo" alt="flight logo" />
-                        <h4>{bookingDetails.flightDetails.FlightName}</h4>
+                        <img src={logoimagemapping[ReplaceWhiteSpaces(bookingDetails.flightDetails.FlightName)]} className="flightlogo" alt={`flight logo ${ReplaceWhiteSpaces(bookingDetails.flightDetails.FlightName)}`} />
+                        <h3>{bookingDetails.flightDetails.FlightName}</h3>
                     </div>
                     <div className="origin">
-                        <h4>{bookingDetails.flightDetails.Origin}</h4>
+                        <h3>{bookingDetails.flightDetails.Origin}</h3>
                         <span>{`(${moment(bookingDetails.flightDetails.departureDateTime).format('DD-MM-YYYY hh:mm')})`}</span>
                     </div>
                     <div className="airtime">
@@ -81,6 +86,7 @@ const ManageBooking = () => {
                         <h4>$ {bookingDetails.bookedPrice}</h4>
                     </div>
                     <div className="action">
+                        <button className="CancelBooking" onClick={() => EditSeats(bookingDetails._id, bookingDetails.flightId, bookingDetails.rateType)}>Edit Seats</button>
                         <button className="CancelBooking" onClick={() => CancelBooking(bookingDetails._id)}>Cancel Booking</button>
                     </div>
                 </div>)
