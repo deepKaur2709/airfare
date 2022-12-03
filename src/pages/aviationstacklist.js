@@ -22,7 +22,7 @@ const ExternalFlightList = (props) => {
 
     useEffect(() => { fetchflightTransaction() }, [1])
     const fetchflightTransaction = async () => {
-        await axios.get(`http://api.aviationstack.com/v1/flights?access_key=${aviationstackapikey}&limit=100`).then((response) => {
+        await axios.get(`https://api.aviationstack.com/v1/flights?access_key=${aviationstackapikey}&limit=100`).then((response) => {
             if (response.status === 200) {
                 if (response.data.data.length > 0) {
                     const flightTransactions = [...response.data.data]
@@ -54,7 +54,7 @@ const ExternalFlightList = (props) => {
             apiquery = apiquery + `&flight_date=${moment(departureDate).format('YYYY-MM-DD')}`
         }
 
-        await axios.get(`http://api.aviationstack.com/v1/flights?access_key=${aviationstackapikey}` + apiquery).then((response) => {
+        await axios.get(`https://api.aviationstack.com/v1/flights?access_key=${aviationstackapikey}` + apiquery).then((response) => {
             if (response.status === 200) {
                 if (response.data.data.length > 0) {
                     const flightTransactions = [...response.data.data]

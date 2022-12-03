@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import aboutUsImage from '../images/aboutusbanner.jpg'
-import womanImage from '../images/woman.png'
-import teamimageone from '../images/undefined.webp'
+import teamimageone from '../images/Sai.jpeg'
+import teamimagetwo from '../images/Mandeep.jpg'
+import teamimagethree from '../images/Sapna.jpeg'
 
 class AboutUs extends Component {
     constructor(props) {
@@ -117,7 +118,7 @@ class AboutUs extends Component {
                 <div className="column_w3">
                     <div className="card_w3">
                         <div className="container_w3">
-                            <img src={womanImage} className="teamimage" alt="team member - Sai Reddy" />
+                            <img src={teamimagetwo} className="teamimage" alt="team member - Sai Reddy" />
                             <h2>Deep kaur</h2>
                             <p className="title fnt-color-black">Backend Developer</p>
                             <p>Primarily Contributes to Backend Developement</p>
@@ -130,7 +131,7 @@ class AboutUs extends Component {
                 <div className="column_w3">
                     <div className="card_w3">
                         <div className="container_w3">
-                            <img src={womanImage} className="teamimage" alt="team member - Sai Reddy" />
+                            <img src={teamimagethree} className="teamimage" alt="team member - Sai Reddy" />
                             <h2>Sapna Sandhu</h2>
                             <p className="title fnt-color-black">Database Developer</p>
                             <p>Primarily Contributes to Database Development</p>
